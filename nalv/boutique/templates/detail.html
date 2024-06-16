@@ -1,0 +1,37 @@
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details - {{ details.marque }} {{ details.serie }}</title>
+    <link href="{% static 'detail.css' %}" rel="stylesheet">
+</head>
+<body>
+    <nav>
+       <div class="nav-right">
+                <div class="nav-item">Bonjour {{ user.last_name }} {{ user.first_name }}</div>
+            </div>
+        <div class="nav-left">
+            <a href="{% url 'deconnexion' %}"><button class="logout-button">Déconnexion</button></a>
+        </div>
+
+        <ul>
+            <li><a href="{% url 'index' %}">Accueil</a></li>
+        </ul>
+    </nav>
+    <div class="welcome-message">Tous les details de voitures</div>
+
+    <div class="car-container">
+        <img src="{{ details.image.url }}" alt="{{ details.marque }}" class="car-image">
+        <div class="car-details">
+            <h2>{{ details.marque }} {{ details.serie }}</h2>
+            <p><strong>Catégorie :</strong> {{ details.categorie }}</p>
+            <p><strong>Type de moteur :</strong> {{ details.moteur }}</p>
+            <p><strong>Numéro d'immatriculation :</strong> {{ details.immatriculation }}</p>
+            <p><strong>Description :</strong> {{ details.description }}</p>
+            <p><strong>Couleur :</strong> {{ details.couleur }}</p>
+            <p class="car-price">{{ details.prix }} FCFA</p>
+        </div>
+    </div>
+</body>
+</html>

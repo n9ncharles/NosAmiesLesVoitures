@@ -1,0 +1,44 @@
+{% load static %}
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Présentation de Voiture</title>
+        <link href="{% static 'style.css' %}" rel="stylesheet">
+    </head>
+
+    <body>
+        <nav>
+            {% if not user.is_authenticated %}
+            <ul>
+                <li><a href="{% url 'inscription' %}">Inscription</a></li>
+                <li><a href="{% url 'connexion' %}">Se connecter</a></li>
+            </ul>
+            {% else %}
+            <div class="nav-right">
+                <div class="nav-item">Bonjour {{ user.last_name }} {{ user.first_name }}</div>
+            </div>
+
+            <div class="nav-left">
+                <a href="{% url 'deconnexion' %}"><button class="logout-button">Déconnexion</button></a>
+            </div>
+            {% endif %}
+
+
+        </nav>
+
+        <div class="welcome-message">Bienvenue à notre présentation de voitures</div>
+        {% for element in voitures %}
+        <div class="car-container">
+            <div class="car-item">
+                <img src="{{ element.image.url }}" alt="{{ element.marque }}" class="car-image">
+                {% if user.is_authenticated %}
+                    <div class="car-brand"><a href="{% url 'detail' element.slug %}">{{ element.marque }}</a></div>
+                {% else %}
+                    <div class="car-brand"><a href="{% url 'connexion' %}">{{ element.marque }}</a></div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </body>
+</html>
